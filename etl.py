@@ -138,7 +138,7 @@ def load_source_data(spark, input_data, output_data):
         SELECT CAST(dt AS DATE) dt, YEAR(CAST(dt AS DATE)) year, MONTH(CAST(dt AS DATE)) month, DAY(CAST(dt AS DATE)) day, CAST(AverageTemperature AS DOUBLE) avg_temperature,
         UPPER(city) city, UPPER(country) country, CAST(SUBSTRING(longitude,1,LENGTH(longitude)-1) AS DOUBLE)*-1 lon, CAST(SUBSTRING(latitude,1,LENGTH(latitude)-1) AS DOUBLE) lat
         FROM weather_table w
-        WHERE country = 'United States' AND YEAR(CAST(dt AS DATE)) >= 1980
+        WHERE country = 'United States' AND YEAR(CAST(dt AS DATE)) >= 1960
     ''')
     weather_source_table.createOrReplaceTempView("weather_source_table")
     print(f'{weather_source_table.count():,d} records were successfully processed into weather_source_table table.')
