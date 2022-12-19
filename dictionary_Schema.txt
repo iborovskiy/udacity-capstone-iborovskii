@@ -1,0 +1,103 @@
+i94_full_source_table - "i94_clean_source_table"
+ |-- id: long (nullable = true) - fact_i94_history
+ |-- country_of_residence: string (nullable = true) - fact_i94_history
+ |-- country_of_citizenship: string (nullable = true) - fact_i94_history
+ |-- city_of_entry: string (nullable = true) - fact_i94_history
+ |-- state_of_entry_code: string (nullable = true) - fact_i94_history
+ |-- state_of_entry_full: string (nullable = true)
+ |-- border_cross_method: string (nullable = true) - fact_i94_history
+ |-- type_of_visa: string (nullable = true) - fact_i94_history
+ |-- class_of_admission: string (nullable = true) - fact_i94_history
+ |-- gender: string (nullable = true) - fact_i94_history
+ |-- age: long (nullable = true) - fact_i94_history
+ |-- arr_date: date (nullable = true) - dim_time, fact_i94_history
+ |-- dep_date: date (nullable = true) - dim_time, fact_i94_history
+ |-- day: integer (nullable = true) - used for writing in parquet
+ |-- year: integer (nullable = true) - used for writing in parquet
+ |-- month: integer (nullable = true) - used for writing in parquet
+
+cities_pop_source_table - "cities_pop_clean_source_table"
+ |-- city: string (nullable = true) - dim_cities
+ |-- state: string (nullable = true) - dim_cities
+ |-- median_age: double (nullable = true) - dim_cities
+ |-- male_population: long (nullable = true) - dim_cities
+ |-- female_population: long (nullable = true) - dim_cities
+ |-- total_population: long (nullable = true) - dim_cities
+ |-- number_of_veterans: long (nullable = true) - dim_cities
+ |-- foreign_born: long (nullable = true) - dim_cities
+ |-- avg_household_size: double (nullable = true) - dim_cities
+ |-- american_indian_and_alaska_native: long (nullable = true) - dim_cities
+ |-- asian: long (nullable = true) - dim_cities
+ |-- white: long (nullable = true) - dim_cities
+ |-- hispanic_or_latino: long (nullable = true) - dim_cities
+ |-- black_or_african_american: long (nullable = true) - dim_cities
+ |-- state_code: string (nullable = true) - dim_cities
+
+weather_source_table - "weather_clean_source_table"
+ |-- dt: date (nullable = true) - dim_time
+ |-- day: integer (nullable = true) - used for writing in parquet
+ |-- city: string (nullable = true)
+ |-- state: string (nullable = true)
+ |-- lat: double (nullable = true)
+ |-- lon: double (nullable = true)
+ |-- avg_temperature: double (nullable = true) - fact_i94_history
+ |-- year: integer (nullable = true) - used for writing in parquet
+ |-- month: integer (nullable = true) - used for writing in parquet
+
+airports_source_table - "airports_clean_source_table"
+ |-- type: string (nullable = true) - dropped in resulting pivot table
+ |-- name: string (nullable = true) - dropped in resulting pivot table
+ |-- elevation_ft: long (nullable = true) - dropped in resulting pivot table
+ |-- municipality: string (nullable = true) - dim_cities
+ |-- gps_code: string (nullable = true) - dropped in resulting pivot table
+ |-- lon: double (nullable = true) - dropped in resulting pivot table
+ |-- lat: double (nullable = true) - dropped in resulting pivot table
+ |-- iso_region: string (nullable = true) - dim_cities
+ 
+ 
+ dim_cities_table - "dim_cities"
+ |-- city: string (nullable = true)
+ |-- state: string (nullable = true)
+ |-- median_age: double (nullable = true)
+ |-- male_population: long (nullable = true)
+ |-- female_population: long (nullable = true)
+ |-- total_population: long (nullable = true)
+ |-- number_of_veterans: long (nullable = true)
+ |-- foreign_born: long (nullable = true)
+ |-- avg_household_size: double (nullable = true)
+ |-- american_indian_and_alaska_native: long (nullable = true)
+ |-- asian: long (nullable = true)
+ |-- white: long (nullable = true)
+ |-- hispanic_or_latino: long (nullable = true)
+ |-- black_or_african_american: long (nullable = true)
+ |-- state_code: string (nullable = true)
+ |-- number_of_airports: long (nullable = true)
+
+
+-------- DATA MODEL --------
+
+dim_time_table - "dim_time"
+ |-- dt: date (nullable = true)
+ |-- year: integer (nullable = true)
+ |-- month: integer (nullable = true)
+ |-- day: integer (nullable = true)
+ |-- dow: integer (nullable = true)
+ |-- week: integer (nullable = true)
+ 
+ fact_i94_history_table - "fact_i94_history"
+ |-- id: long (nullable = true)
+ |-- country_of_residence: string (nullable = true)
+ |-- country_of_citizenship: string (nullable = true)
+ |-- city_of_entry: string (nullable = true)
+ |-- state_of_entry_code: string (nullable = true)
+ |-- border_cross_method: string (nullable = true)
+ |-- type_of_visa: string (nullable = true)
+ |-- class_of_admission: string (nullable = true)
+ |-- gender: string (nullable = true)
+ |-- age: long (nullable = true)
+ |-- arr_date: date (nullable = true)
+ |-- dep_date: date (nullable = true)
+ |-- year: integer (nullable = true)
+ |-- month: integer (nullable = true)
+ |-- day: integer (nullable = true)
+ |-- avg_temperature: double (nullable = true)
